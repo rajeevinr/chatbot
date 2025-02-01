@@ -156,7 +156,7 @@ if combined_document_content:
         # Add user question and AI response to chat history
         st.session_state.chat_history.append({"user": user_question, "ai": response.text})
 
-        # Clear the input box after processing
+        # Clear the input box by rerunning the app
         st.experimental_rerun()
 else:
     st.write("No document content was read successfully.")
