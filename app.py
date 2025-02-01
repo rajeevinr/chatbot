@@ -125,13 +125,29 @@ with concurrent.futures.ThreadPoolExecutor() as executor:
 
 combined_document_content = ''.join(results)
 
+# Initialize chat history
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+
 # Chat interface
 if combined_document_content:
     st.write("All documents processed. You can start asking questions.")
 
+    # Display chat history
+    st.write("### Chat History")
+    for chat in st.session_state.chat_history:
+        st.write(f"**You:** {chat['user']}")
+        st.write(f"**AI:** {chat['ai']}")
+        st.write("---")
+
+    # User input
     user_question = st.text_input("You: ", "")
 
     if user_question:
+        # Add user question to chat history
+        st.session_state.chat_history.append({"user": user_question, "ai": ""})
+
+        # Prepare the prompt
         user_question = f"Please answer based only on the content of the document provided above. " \
                         f"Do not include any external or general knowledge. Question: {user_question}"
 
@@ -140,9 +156,10 @@ if combined_document_content:
         # Send the combined document content and the refined question to the model
         response = chat_session.send_message(prompt)
 
-        if "not available" in response.text.lower():
-            st.write("AI: Sorry, the requested information is not available in the document.")
-        else:
-            st.write(f"AI: {response.text}")
+        # Add AI response to chat history
+        st.session_state.chat_history[-1]["ai"] = response.text
+
+        # Rerun the app to update the chat history display
+        st.experimental_rerun()
 else:
     st.write("No document content was read successfully.")
