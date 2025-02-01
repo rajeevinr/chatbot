@@ -1,6 +1,6 @@
 import os
 import concurrent.futures
-import fitz  # PyMuPDF
+import pymupdf as fitz  # PyMuPDF
 import google.generativeai as genai  # google-generativeai
 import pickle
 import requests
