@@ -77,8 +77,8 @@ model = genai.GenerativeModel(
 chat_session = model.start_chat(history=[])
 
 # Streamlit app
-st.title("📄 PDF Chatbot")
-st.write("Welcome! I can answer questions based on the content of PDF documents from a GitHub repository.")
+st.title("Welcome to Luthra Digital Help📄")
+st.write("We help you to get details quickly, keep asking :)")
 
 # GitHub repository URL
 github_repo_url = "https://github.com/Luthra-Digital/rbi_docs"
@@ -87,7 +87,7 @@ github_repo_url = "https://github.com/Luthra-Digital/rbi_docs"
 pdf_urls = fetch_pdf_files_from_github(github_repo_url)
 
 if not pdf_urls:
-    st.error("No PDF files found in the repository.")
+    st.error("Something Error Here, try later!")
     st.stop()
 
 # Download and process PDFs
@@ -127,7 +127,7 @@ combined_document_content = ''.join(results)
 
 # Chat interface
 if combined_document_content:
-    st.write("✅ All documents processed. You can start asking questions!")
+    st.write("✅ You can start asking questions!")
 
     # Initialize chat history
     if "chat_history" not in st.session_state:
@@ -165,4 +165,4 @@ if combined_document_content:
         with st.chat_message("assistant"):
             st.write(response.text)
 else:
-    st.write("❌ No document content was read successfully.")
+    st.write("This is not you, its us, we will fix it sortly ❌\nPlease Try Again Later!")
