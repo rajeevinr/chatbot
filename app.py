@@ -144,9 +144,6 @@ if combined_document_content:
     user_question = st.text_input("You: ", "")
 
     if user_question:
-        # Add user question to chat history
-        st.session_state.chat_history.append({"user": user_question, "ai": ""})
-
         # Prepare the prompt
         user_question = f"Please answer based only on the content of the document provided above. " \
                         f"Do not include any external or general knowledge. Question: {user_question}"
@@ -156,10 +153,10 @@ if combined_document_content:
         # Send the combined document content and the refined question to the model
         response = chat_session.send_message(prompt)
 
-        # Add AI response to chat history
-        st.session_state.chat_history[-1]["ai"] = response.text
+        # Add user question and AI response to chat history
+        st.session_state.chat_history.append({"user": user_question, "ai": response.text})
 
-        # Rerun the app to update the chat history display
+        # Clear the input box after processing
         st.experimental_rerun()
 else:
     st.write("No document content was read successfully.")
