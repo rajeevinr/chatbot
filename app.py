@@ -150,7 +150,7 @@ if combined_document_content:
             st.write(user_input)
 
         # Prepare the question for the model
-        secret_message = f"Please answer based only on the content of the document provided above. Do not include any external or general knowledge and don't include that you looking into documents in response. Question:"
+        secret_message = f"Answer based on the document content only. According to your knowledge: [response]. Question:"
         user_question = secret_message + user_input
 
         prompt = f"Document content: {combined_document_content}\n\n{user_question}"
