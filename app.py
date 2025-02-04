@@ -7,7 +7,8 @@ import requests
 import streamlit as st
 
 # Configure Gemini API
-genai.configure(api_key=st.secrets['GOOGLE_API_KEY'])
+# genai.configure(api_key=st.secrets['GOOGLE_API_KEY'])
+genai.configure(api_key='AIzaSyAjvIVCHQFrha7E1hRkvFk7e4X4si5wXPM')
 
 # Function to fetch list of PDF files from a GitHub repository
 def fetch_pdf_files_from_github(repo_url):
